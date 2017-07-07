@@ -9,6 +9,8 @@ http://koolshare.cn/thread-64086-1-1.html
 koolproxy性能测试：
 http://koolshare.cn/thread-80772-1-1.html
 
+感谢【逝去的青春】整理的luci-app-koolproxy
+https://github.com/openwrt-develop/luci-app-koolproxy
 
 ## 准备工作：
 <font color=red>
@@ -21,29 +23,24 @@ http://koolshare.cn/thread-80772-1-1.html
 * 如果没有 **openssl** ，就不能正常生成证书，导致https过滤失败！
 * 如果没有 **ipset, dnsmasq-full, diffutils**，黑名单模式也会出现问题！（ipset 需要版本6）,如果你的固件的busybox带有支持diff支持，那么diffutils包可以不安装
 * 如果没有 **iptables-mod-nat-extra** ，会导致mac过滤失效！
-* 如果没有 **wget, ca-bundle, ca-certificates, libustream-openssl** ，会导致规则文件更新失败，host规则条数变为0,如果你的固件的busybox带有支持https的wget，那么这几个包可以不安装
+* 如果没有 **wget, ca-bundle, ca-certificates, libustream-openssl** ，会导致adblock host规则文件更新失败，host规则条数变为0,如果你的固件的busybox带有支持https的wget，那么这几个包可以不安装
 </br></font></br>
 
 ## 开始安装：
 请使用cat /proc/cpuinfo查询自己路由器的cpu架构，注意ar系列基本都是mips，mtk的都是mipsel，然后根据自己的cpu架构选择对应的安装方式：</br>
 请使用putty或者其它SSH工具登陆到路由器，然后在联网状态下运行：</br>
-mips：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_mips.ipk </br>
-mipsel：	opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_mipsel.ipk </br>
-arm：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_arm.ipk </br>
-i386：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_i386.ipk </br>
-x86_64：	opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_x86_64.ipk </br>
-
-如果需要中文翻译，还需要运行</br>
-opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-i18n-koolproxy-zh-cn.ipk
+mips：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_3.5.2-1_mips.ipk </br>
+mipsel：	opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_3.5.2-1_mipsel.ipk </br>
+arm：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_3.5.2-1_arm.ipk </br>
+i386：		opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_3.5.2-1_i386.ipk </br>
+x86_64：	opkg install http://firmware.koolshare.cn/binary/KoolProxy/luci/luci-app-koolproxy_3.5.2-1_x86_64.ipk </br>
 
 ## 注意事项：
-1. 首次运行koolproxy的时候，保存并提交速度较慢，因为会生成证书。
+1. 首次运行koolproxy的时候，保存并提交速度较慢，因为会生成证书，更新规则等，提交完毕后可能看到透明代理未运行，需要稍等一会儿，重新进入koolproxy页面即可看到正常。
 2. 使用koolshare论坛fw867发布的LEDE固件的朋友，不建议安装此luci，虽然也能使用（需要卸载掉自带的koolproxy再安装），但是部分代码和原固件集成的有差别，建议使用F大固件的朋友仅仅更新二进制文件即可
-3. 此版本在网件WNDR4300V1(mips) OpenWrt Chaos Calmer 15.05.1上测试通过，其它机型暂时未经过测试，如果遇到问题，请到以下渠道进行反馈:
+3. 如果遇到问题，请到以下渠道进行反馈:
 * QQ群：https://jq.qq.com/?_wv=1027&k=445DYpV </br>
 * TG群：https://t.me/joinchat/AAAAAD-tO7GPvfOU131_vg
-
+4. mip和mipsel架构的路由器由于性能原因，开启https过滤后第一次进入https网页（规则里有的https过滤规则的网页），需要生成证书，速度较慢，第二次进入就没问题了。
 ## LUCI更新日志：
-2017年03月31日 17:01, koolproxy 3.3.6
-
-
+2017年04月25日 0:31, koolproxy 3.5.2

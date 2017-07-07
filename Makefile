@@ -1,13 +1,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-koolproxy
-PKG_VERSION:=1.0.1
+PKG_VERSION:=3.5.2
 PKG_RELEASE:=1
-
-PKG_MAINTAINER:=panda-mute <wxuzju@gmail.com>
-PKG_LICENSE:=GPLv3
-PKG_LICENSE_FILES:=LICENSE
-
+PKG_MAINTAINER:=panda-mute/sadoneli <wxuzju@gmail.com/sadoneli@gmail.com>
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -17,6 +13,7 @@ define Package/luci-app-koolproxy
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
 	TITLE:=LuCI support for koolproxy
+	PKGARCH:=all
 	DEPENDS:=+openssl-util +ipset +dnsmasq-full +@BUSYBOX_CONFIG_DIFF +iptables-mod-nat-extra +wget
 	MAINTAINER:=panda-mute
 endef
@@ -71,21 +68,7 @@ define Package/luci-app-koolproxy/install
 	$(INSTALL_BIN) ./files/usr/share/koolproxy/koolproxyupdate $(1)/usr/share/koolproxy/koolproxyupdate
 	$(INSTALL_DATA) ./files/usr/share/koolproxy/adblock.conf $(1)/usr/share/koolproxy/adblock.conf
 	$(INSTALL_DATA) ./files/usr/share/koolproxy/dnsmasq.adblock $(1)/usr/share/koolproxy/dnsmasq.adblock
-ifeq ($(ARCH),mipsel)
-	$(INSTALL_BIN) ./files/bin/mipsel $(1)/usr/share/koolproxy/koolproxy
-endif
-ifeq ($(ARCH),mips)
-	$(INSTALL_BIN) ./files/bin/mips $(1)/usr/share/koolproxy/koolproxy
-endif
-ifeq ($(ARCH),i386)
-	$(INSTALL_BIN) ./files/bin/i386 $(1)/usr/share/koolproxy/koolproxy
-endif
-ifeq ($(ARCH),x86_64)
-	$(INSTALL_BIN) ./files/bin/x86_64 $(1)/usr/share/koolproxy/koolproxy
-endif
-ifeq ($(ARCH),arm)
 	$(INSTALL_BIN) ./files/bin/arm $(1)/usr/share/koolproxy/koolproxy
-endif
 endef
 
 $(eval $(call BuildPackage,luci-app-koolproxy))
